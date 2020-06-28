@@ -17,6 +17,7 @@ export default class EventController {
    * @param organizer organizer of the event
    * @param participantsCount participantsCount of the event
    * @param type type of the event
+   * @returns success or failure
    */
   public addEvent = async (req: Request, res: Response): Promise<any> => {
     const requestData = req.body;
