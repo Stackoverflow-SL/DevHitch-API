@@ -4,7 +4,7 @@ import * as express from "express";
 import * as helmet from "helmet";
 import * as morgan from "morgan";
 import * as errorHandler from "./src/helpers/error.handler";
-import apiV1 from "./src/api-v1";
+import apiV1 from "./src/api";
 import config from "./src/config/config";
 import { MongoHelper } from "./src/config/mongodb.config";
 
