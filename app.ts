@@ -34,9 +34,9 @@ class App {
     const MONGO_DB_URI = config.MONGO_DB_URI;
     try {
       await MongoHelper.connect(`${MONGO_DB_URI}`);
-      console.info(`Connected to MongoDB!`);
+      console.info(`Connected to CosmosDB!`);
     } catch (err) {
-      console.error(`Unable to connect to MongoDB!`, err);
+      console.error(`Unable to connect to CosmosDB!`, err);
     }
   }
 

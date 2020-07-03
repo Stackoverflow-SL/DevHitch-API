@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import * as mongodb from "mongodb";
-import { MongoHelper } from "../../config/mongodb.config";
+// import * as mongodb from "mongodb";
+// import { MongoHelper } from "../../config/mongodb.config";
 import Event from "./event.class";
 
 const getCollection = () => {
-  return MongoHelper.client.db("devhitch").collection("events");
+  // return MongoHelper.client.db("devhitch").collection("events");
 };
 
 export default class EventController {
@@ -20,22 +20,22 @@ export default class EventController {
    */
   public addEvent = async (req: Request, res: Response): Promise<any> => {
     const requestData = req.body;
-    const collection: any = getCollection();
+    // const collection: any = getCollection();
 
-    const event = new Event(requestData);
+    // const event = new Event(requestData);
 
-    collection
-      .insertOne(event)
-      .then(() => {
-        res.status(200).json({
-          success: true,
-          message: "Successfully added",
-        });
-        res.end();
-      })
-      .catch((err: any) => {
-        console.error(err);
-        res.send({ success: false, message: "Unable to Add" });
-      });
+    // collection
+    //   .insertOne(event)
+    //   .then(() => {
+    //     res.status(200).json({
+    //       success: true,
+    //       message: "Successfully added",
+    //     });
+    //     res.end();
+    //   })
+    //   .catch((err: any) => {
+    //     console.error(err);
+    //     res.send({ success: false, message: "Unable to Add" });
+    //   });
   };
 }
