@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import * as mongodb from "mongodb";
 import { MongoHelper } from "../../config/mongodb.config";
 import Event from "./event.class";
 
@@ -51,14 +50,14 @@ export default class EventController {
    * @param type type of the event
    * @returns success or failure
    */
-  public updateEvent = async (req: Request, res: Response): Promise<any> => {};
+  public updateEvent = async (): Promise<any> => {};
 
   /**
    * Delete Event
    * @param eventId
    * @returns success or failure
    */
-  public deleteEvent = async (req: Request, res: Response): Promise<any> => {};
+  public deleteEvent = async (): Promise<any> => {};
 
   /**
    *
@@ -66,7 +65,7 @@ export default class EventController {
    * @param eventId
    * @returns success or failure
    */
-  public getEventById = async (req: Request, res: Response): Promise<any> => {};
+  public getEventById = async (): Promise<any> => {};
 
   /**
    * Get All Events

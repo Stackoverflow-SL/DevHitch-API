@@ -1,4 +1,5 @@
 import * as mongoose from "mongoose";
+import { IUser } from "./user.interface";
 
 export const UserSchema = new mongoose.Schema({
   _id: { type: mongoose.Schema.Types.ObjectId, required: true },
@@ -9,3 +10,6 @@ export const UserSchema = new mongoose.Schema({
   joinedGroups: { type: [], required: false },
   bio: { type: String },
 });
+
+const User = mongoose.model<IUser>("User", UserSchema);
+export default User;
