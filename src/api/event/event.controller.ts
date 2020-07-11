@@ -41,6 +41,34 @@ export default class EventController {
   };
 
   /**
+   * Update Event
+   * @param eventId id of the event
+   * @param title title of the event
+   * @param dateTime date and time of the event
+   * @param image url of the event
+   * @param organizer organizer of the event
+   * @param participantsCount participantsCount of the event
+   * @param type type of the event
+   * @returns success or failure
+   */
+  public updateEvent = async (req: Request, res: Response): Promise<any> => {};
+
+  /**
+   * Delete Event
+   * @param eventId
+   * @returns success or failure
+   */
+  public deleteEvent = async (req: Request, res: Response): Promise<any> => {};
+
+  /**
+   *
+   * @param req
+   * @param eventId
+   * @returns success or failure
+   */
+  public getEventById = async (req: Request, res: Response): Promise<any> => {};
+
+  /**
    * Get All Events
    * @returns events list
    */
