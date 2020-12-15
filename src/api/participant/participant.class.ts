@@ -1,7 +1,7 @@
 import * as mongoose from "mongoose";
-import { IUser } from "./user.interface";
+import { IParticipant } from "./participant.interface";
 
-export const UserSchema = new mongoose.Schema({
+export const ParticipantSchema = new mongoose.Schema({
   _id: { type: mongoose.Schema.Types.ObjectId, required: true },
   name: { type: String, required: true },
   email: { type: String, required: true },
@@ -11,5 +11,5 @@ export const UserSchema = new mongoose.Schema({
   bio: { type: String },
 });
 
-const User = mongoose.model<IUser>("User", UserSchema);
-export default User;
+const Participant = mongoose.model<IParticipant>("User", ParticipantSchema);
+export default Participant;
