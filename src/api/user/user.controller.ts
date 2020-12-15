@@ -1,25 +1,25 @@
 import { Request, Response } from "express";
 import { MongoHelper } from "../../config/mongodb.config";
-import Participant from "./participant.class";
+import User from "./user.class";
 
 const getCollection = () => {
-  return MongoHelper.client.db("devhitch").collection("participants");
+  return MongoHelper.client.db("devhitch").collection("users");
 };
 
-export default class ParticipantController {
+export default class UserController {
   /**
    * Add User
    * @param req
    * @param res
    */
-  public addParticipant = async (req: Request, res: Response): Promise<any> => {
+  public addUser = async (req: Request, res: Response): Promise<any> => {
     const requestData = req.body;
     const collection: any = getCollection();
 
-    const participant = new Participant(requestData);
+    const user = new User(requestData);
 
     collection
-      .insertOne(participant)
+      .insertOne(user)
       .then(() => {
         res.status(200).json({
           success: true,

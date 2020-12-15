@@ -1,6 +1,7 @@
 import { Router } from "express";
 import events from "./event/event.route";
-import participant from "./participant/participant.route";
+import participant from "./user/user.route";
+import group from "./group/group.route";
 
 const router: Router = Router();
 
@@ -9,6 +10,7 @@ router.get("/", (_req, res) => {
 });
 
 router.use("/event", events);
-router.use("/participant", participant);
+router.use("/user", participant);
+router.use("/group", group);
 
 export default router;

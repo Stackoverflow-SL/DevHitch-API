@@ -9,14 +9,9 @@ const getCollection = () => {
 export default class EventController {
   /**
    * Add Event
-   * @param eventId id of the event
-   * @param title title of the event
-   * @param dateTime date and time of the event
-   * @param image url of the event
-   * @param organizer organizer of the event
-   * @param participantsCount participantsCount of the event
-   * @param type type of the event
    * @returns success or failure
+   * @param req
+   * @param res
    */
   public addEvent = async (req: Request, res: Response): Promise<any> => {
     const requestData = req.body;
@@ -84,17 +79,6 @@ export default class EventController {
           res.end();
           console.error("Caught error", err);
         } else {
-          // items = items.map(
-          //   (item: { _id: any; name: any; email: any; contactNo: any }) => {
-          //     return {
-          //       id: item._id,
-          //       name: item.name,
-          //       email: item.email,
-          //       contactNo: item.contactNo,
-          //     };
-          //   }
-          // );
-
           res.status(200).json({
             success: true,
             values: items,
