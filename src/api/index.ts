@@ -1,6 +1,6 @@
 import { Router } from "express";
 import admin from "./admin/admin.route";
-import events from "./event/event.route";
+import event from "./event/event.route";
 import user from "./user/user.route";
 import group from "./group/group.route";
 
@@ -11,7 +11,7 @@ router.get("/", (_req, res) => {
 });
 
 router.use("/admin", admin);
-router.use("/event", events);
+router.use("/event", event);
 router.use("/user", user);
 router.use("/group", group);
 

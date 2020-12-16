@@ -22,23 +22,29 @@ export default class EventController {
    */
   public addEvent = async (req: Request, res: Response): Promise<any> => {
     const requestData = req.body;
-    const collection: any = getCollection();
+    let collection: any;
 
-    const event = new Event(requestData);
+    try {
+      collection = getCollection();
 
-    collection
-      .insertOne(event)
-      .then(() => {
-        res.status(200).json({
-          success: true,
-          message: "Successfully added",
+      const event = new Event(requestData);
+
+      collection
+        .insertOne(event)
+        .then(() => {
+          res.status(200).json({
+            success: true,
+            message: "Successfully added",
+          });
+          res.end();
+        })
+        .catch((err: any) => {
+          console.error(err);
+          res.send({ success: false, message: "Unable to Add" });
         });
-        res.end();
-      })
-      .catch((err: any) => {
-        console.error(err);
-        res.send({ success: false, message: "Unable to Add" });
-      });
+    } catch (e) {
+      return res.send(responses.failed(ErrorCodes.INTERNAL_ERROR, 500));
+    }
   };
 
   /**
@@ -57,31 +63,37 @@ export default class EventController {
       participants,
       type,
     } = req.body;
-    const collection: any = getCollection();
+    let collection: any;
 
-    collection
-      .findOneAndUpdate(
-        {
-          _id: new mongodb.ObjectId(_id),
-        },
-        {
-          $set: {
-            title,
-            dateTime,
-            image,
-            organizer,
-            participants,
-            type,
+    try {
+      collection = getCollection();
+
+      collection
+        .findOneAndUpdate(
+          {
+            _id: new mongodb.ObjectId(_id),
           },
-        }
-      )
-      .then(() => {
-        res.send(responses.success(SuccessCodes.SUCCESSFULLY_DATA_UPDATED));
-      })
-      .catch((err: any) => {
-        console.error(ErrorCodes.USER_UPDATE_FAILED, err);
-        res.send(responses.failed(ErrorCodes.DATA_UPDATE_FAILED));
-      });
+          {
+            $set: {
+              title,
+              dateTime,
+              image,
+              organizer,
+              participants,
+              type,
+            },
+          }
+        )
+        .then(() => {
+          res.send(responses.success(SuccessCodes.SUCCESSFULLY_DATA_UPDATED));
+        })
+        .catch((err: any) => {
+          console.error(ErrorCodes.USER_UPDATE_FAILED, err);
+          res.send(responses.failed(ErrorCodes.DATA_UPDATE_FAILED));
+        });
+    } catch (e) {
+      return res.send(responses.failed(ErrorCodes.INTERNAL_ERROR, 500));
+    }
   };
 
   /**
@@ -92,17 +104,23 @@ export default class EventController {
    */
   public deleteEvent = async (req: Request, res: Response): Promise<any> => {
     const id = req.params.id;
-    const collection: any = getCollection();
+    let collection: any;
 
-    collection
-      .deleteOne({ _id: new mongodb.ObjectId(id) })
-      .then(() => {
-        res.send(responses.success(SuccessCodes.SUCCESSFULLY_DATA_DELETED));
-      })
-      .catch((err: any) => {
-        console.error(err);
-        res.send(responses.failed(ErrorCodes.INTERNAL_ERROR));
-      });
+    try {
+      collection = getCollection();
+
+      collection
+        .deleteOne({ _id: new mongodb.ObjectId(id) })
+        .then(() => {
+          res.send(responses.success(SuccessCodes.SUCCESSFULLY_DATA_DELETED));
+        })
+        .catch((err: any) => {
+          console.error(err);
+          res.send(responses.failed(ErrorCodes.INTERNAL_ERROR));
+        });
+    } catch (e) {
+      return res.send(responses.failed(ErrorCodes.INTERNAL_ERROR, 500));
+    }
   };
 
   /**
@@ -112,22 +130,28 @@ export default class EventController {
    */
   public getEventById = async (req: Request, res: Response): Promise<any> => {
     const id = req.params.id;
-    const collection: any = getCollection();
+    let collection: any;
 
-    collection
-      .findOne({ _id: id })
-      .then((data: any) => {
-        res.send(
-          responses.successWithPayload(
-            SuccessCodes.SUCCESSFULLY_DATA_RETRIEVED,
-            data
-          )
-        );
-      })
-      .catch((err: any) => {
-        console.error(err);
-        res.send(responses.failed(ErrorCodes.INTERNAL_ERROR, 500));
-      });
+    try {
+      collection = getCollection();
+
+      collection
+        .findOne({ _id: id })
+        .then((data: any) => {
+          res.send(
+            responses.successWithPayload(
+              SuccessCodes.SUCCESSFULLY_DATA_RETRIEVED,
+              data
+            )
+          );
+        })
+        .catch((err: any) => {
+          console.error(err);
+          res.send(responses.failed(ErrorCodes.INTERNAL_ERROR, 500));
+        });
+    } catch (e) {
+      return res.send(responses.failed(ErrorCodes.INTERNAL_ERROR, 500));
+    }
   };
 
   /**
@@ -135,9 +159,11 @@ export default class EventController {
    * @returns events list
    */
   public getEvents = async (req: Request, res: Response): Promise<any> => {
-    const collection: any = getCollection();
+    let collection: any;
 
     try {
+      collection = getCollection();
+
       collection.find({}).toArray((err: any, items: any[]) => {
         if (err) {
           console.error("Caught error", err);
