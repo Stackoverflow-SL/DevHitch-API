@@ -5,9 +5,12 @@ import { MongoHelper } from "../../config/mongodb.config";
 import SuccessCodes from "../../config/success.codes";
 import * as responses from "../../helpers/responses.handler";
 import User from "./user.class";
+import Config from "../../config/config";
 
 const getCollection = () => {
-  return MongoHelper.client.db("devhitch").collection("users");
+  return MongoHelper.client
+    .db(Config.DB_NAME)
+    .collection(Config.USERS_COLLECTION);
 };
 
 export default class UserController {

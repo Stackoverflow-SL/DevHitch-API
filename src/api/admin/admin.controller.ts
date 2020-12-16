@@ -5,9 +5,12 @@ import Admin from "./admin.class";
 import ErrorCodes from "../../config/error.codes";
 import SuccessCodes from "../../config/success.codes";
 import * as responses from "../../helpers/responses.handler";
+import Config from "../../config/config";
 
 const getCollection = () => {
-  return MongoHelper.client.db("devhitch").collection("events");
+  return MongoHelper.client
+    .db(Config.DB_NAME)
+    .collection(Config.ADMINS_COLLECTION);
 };
 
 export default class AdminController {

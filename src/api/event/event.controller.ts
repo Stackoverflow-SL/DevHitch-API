@@ -5,9 +5,12 @@ import { MongoHelper } from "../../config/mongodb.config";
 import SuccessCodes from "../../config/success.codes";
 import * as responses from "../../helpers/responses.handler";
 import Event from "./event.class";
+import Config from "../../config/config";
 
 const getCollection = () => {
-  return MongoHelper.client.db("devhitch").collection("events");
+  return MongoHelper.client
+    .db(Config.DB_NAME)
+    .collection(Config.EVENTS_COLLECTION);
 };
 
 export default class EventController {
