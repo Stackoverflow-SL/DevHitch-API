@@ -6,6 +6,6 @@ export interface IEvent extends mongoose.Document {
   dateTime: string;
   image: string;
   organizer: string;
-  participantsCount: number;
+  participants: string[];
   type: string;
 }

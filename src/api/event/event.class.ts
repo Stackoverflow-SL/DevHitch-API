@@ -7,7 +7,7 @@ export const EventSchema = new mongoose.Schema({
   dateTime: { type: String, required: true },
   image: { type: String },
   organizer: { type: String, required: true },
-  participantsCount: { type: String },
+  participants: { type: Array<string>() },
   type: { type: String },
 });
 

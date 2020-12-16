@@ -1,9 +1,8 @@
 {
-    "extends": ["tslint:latest", "tslint-config-prettier"],
+    "extends": ["tslint:latest"],
     "rules": {
       "no-implicit-dependencies": [true, "dev"],
       "no-console": [true, "dev"],
       "object-literal-sort-keys": [false, "dev"]
     }
   }
-  

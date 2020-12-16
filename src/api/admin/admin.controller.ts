@@ -1,46 +1,45 @@
 import { Request, Response } from "express";
 import * as mongodb from "mongodb";
-import ErrorCodes from "../../config/error.codes";
 import { MongoHelper } from "../../config/mongodb.config";
+import Admin from "./admin.class";
+import ErrorCodes from "../../config/error.codes";
 import SuccessCodes from "../../config/success.codes";
 import * as responses from "../../helpers/responses.handler";
-import Event from "./event.class";
 import Config from "../../config/config";
 
 const getCollection = () => {
   return MongoHelper.client
     .db(Config.DB_NAME)
-    .collection(Config.EVENTS_COLLECTION);
+    .collection(Config.ADMINS_COLLECTION);
 };
 
-export default class EventController {
+export default class AdminController {
   /**
    * Add Event
    * @returns success or failure
    * @param req
    * @param res
    */
-  public addEvent = async (req: Request, res: Response): Promise<any> => {
+  public addAdmin = async (req: Request, res: Response): Promise<any> => {
     const requestData = req.body;
     let collection: any;
 
     try {
       collection = getCollection();
 
-      const event = new Event(requestData);
+      const admin = new Admin(requestData);
 
       collection
-        .insertOne(event)
+        .insertOne(admin)
         .then(() => {
-          res.status(200).json({
-            success: true,
-            message: "Successfully added",
-          });
+          res
+            .status(200)
+            .send(responses.success(SuccessCodes.SUCCESSFULLY_DATA_ADDED));
           res.end();
         })
         .catch((err: any) => {
           console.error(err);
-          res.send({ success: false, message: "Unable to Add" });
+          res.send(responses.failed(ErrorCodes.INTERNAL_ERROR, 500));
         });
     } catch (e) {
       return res.send(responses.failed(ErrorCodes.INTERNAL_ERROR, 500));
@@ -48,21 +47,12 @@ export default class EventController {
   };
 
   /**
-   * Update Event
-   * @returns success or failure
+   * Update Admin
    * @param req
    * @param res
    */
-  public updateEvent = async (req: Request, res: Response): Promise<any> => {
-    const {
-      _id,
-      title,
-      dateTime,
-      image,
-      organizer,
-      participants,
-      type,
-    } = req.body;
+  public updateAdmin = async (req: Request, res: Response): Promise<any> => {
+    const { _id, firstName, lastName, email, password } = req.body;
     let collection: any;
 
     try {
@@ -75,12 +65,10 @@ export default class EventController {
           },
           {
             $set: {
-              title,
-              dateTime,
-              image,
-              organizer,
-              participants,
-              type,
+              firstName,
+              lastName,
+              email,
+              password,
             },
           }
         )
@@ -97,12 +85,11 @@ export default class EventController {
   };
 
   /**
-   * Delete Event
-   * @returns success or failure
+   * Delete Admin
    * @param req
    * @param res
    */
-  public deleteEvent = async (req: Request, res: Response): Promise<any> => {
+  public deleteAdmin = async (req: Request, res: Response): Promise<any> => {
     const id = req.params.id;
     let collection: any;
 
@@ -124,11 +111,11 @@ export default class EventController {
   };
 
   /**
-   * Get Event By Id
+   * Get Admin by Id
    * @param req
    * @param res
    */
-  public getEventById = async (req: Request, res: Response): Promise<any> => {
+  public getAdminById = async (req: Request, res: Response): Promise<any> => {
     const id = req.params.id;
     let collection: any;
 
@@ -155,10 +142,11 @@ export default class EventController {
   };
 
   /**
-   * Get All Events
-   * @returns events list
+   * Get Admin List
+   * @param req
+   * @param res
    */
-  public getEvents = async (req: Request, res: Response): Promise<any> => {
+  public getAdmins = async (req: Request, res: Response): Promise<any> => {
     let collection: any;
 
     try {
