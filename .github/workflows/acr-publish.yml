@@ -1,0 +1,36 @@
+name: ACR Build and Push
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build image
+    runs-on: ubuntu-latest
+
+    env:
+      HASH: $(git rev-parse --short "$GITHUB_SHA")
+      BRANCH: master
+      SERVICE_NAME: devhitch-api
+      ACR_SERVER: ${{ secrets.ACR_SERVER }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Setup az CLI
+      - uses: azure/docker-login@v1
+        with:
+          login-server: $ACR_SERVER
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      # Build docker image
+      - name: Image Build
+        run: |-
+          docker build -t $ACR_SERVER/$SERVICE_NAME:latest .
+      # Push image to Azure Container Registry
+      - name: Image Push
+        run: |-
+          docker push $ACR_SERVER/$SERVICE_NAME:latest
