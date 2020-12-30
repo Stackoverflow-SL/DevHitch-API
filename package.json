@@ -4,7 +4,7 @@
   "description": "DevHitch Rest API",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build && node dist/index.js",
+    "start": "ts-node  index.ts",
     "start-dev": "tsc && node dist/index.js",
     "dev": "nodemon --exec 'ts-node' index.ts",
     "build": "tsc",
