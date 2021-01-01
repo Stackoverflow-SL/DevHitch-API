@@ -2,8 +2,8 @@
 function failed(errorCode: string, statusCode: number = 400) {
   return {
     success: false,
-    errorCode: errorCode,
-    statusCode: statusCode,
+    errorCode,
+    statusCode,
   };
 }
 
@@ -11,7 +11,7 @@ function failed(errorCode: string, statusCode: number = 400) {
 function success(message) {
   return {
     success: true,
-    message: message,
+    message,
   };
 }
 
@@ -19,8 +19,8 @@ function success(message) {
 function successWithPayload(message, data) {
   return {
     success: true,
-    data: data,
-    message: message,
+    data,
+    message,
   };
 }
 

@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import * as httpStatus from "http-status";
 
 // handle not found errors
