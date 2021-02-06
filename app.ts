@@ -3,10 +3,20 @@ import * as cors from "cors";
 import * as express from "express";
 import * as helmet from "helmet";
 import * as morgan from "morgan";
+import * as xss from "xss-clean";
+import * as rateLimit from "express-rate-limit";
+import * as mongoSanitize from "express-mongo-sanitize";
+import * as hpp from "hpp";
 import * as errorHandler from "./src/helpers/error.handler";
 import apiV1 from "./src/api";
 import config from "./src/config/config";
 import { MongoHelper } from "./src/config/mongodb.config";
+
+// Rate limiting
+const limiter = rateLimit({
+    windowMs: 10 * 60 * 1000, // 10 mins
+    max: 1000, // No.of Requests
+});
 
 class App {
   public express: express.Application;
@@ -24,6 +34,10 @@ class App {
     this.express.use(bodyParser.urlencoded({ extended: true }));
     this.express.use(bodyParser.json());
     this.express.use(helmet());
+    this.express.use(xss());
+    this.express.use(mongoSanitize());
+    this.express.use(hpp());
+    this.express.use(limiter);
   }
 
   private setRoutes(): void {
