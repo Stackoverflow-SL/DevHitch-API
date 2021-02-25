@@ -38,15 +38,19 @@
     "dotenv": "^8.2.0",
     "eslint": "^7.3.1",
     "express": "^4.17.1",
+    "express-mongo-sanitize": "^2.0.2",
+    "express-rate-limit": "^5.2.3",
     "helmet": "^3.23.0",
+    "hpp": "^0.2.3",
     "http-status": "^1.4.2",
     "https": "^1.0.0",
     "husky": "^4.2.5",
     "jsonwebtoken": "^8.5.1",
     "lint-staged": "^10.2.11",
-    "prettier": "^2.0.5",
     "mongodb": "^3.5.9",
-    "mongoose": "^5.9.19"
+    "mongoose": "^5.9.19",
+    "prettier": "^2.0.5",
+    "xss-clean": "^0.1.1"
   },
   "husky": {
     "hooks": {
