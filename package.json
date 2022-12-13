@@ -37,7 +37,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "eslint": "^7.3.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-mongo-sanitize": "^2.0.2",
     "express-rate-limit": "^5.2.3",
     "helmet": "^3.23.0",
